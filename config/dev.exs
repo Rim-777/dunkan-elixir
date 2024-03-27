@@ -26,6 +26,10 @@ config :dunkan, DunkanWeb.Endpoint,
   secret_key_base: "XRtc5cfMH/1SGg3I4LBcvShDbV3gZpZNc5xwSZkne3CDnvaU+9jlBknu4nt6mDsm",
   watchers: []
 
+config :dunkan, Dunkan.Auth.Guardian,
+  issuer: "dunkan-backend-dev",
+  secret_key: "3UD5rwEUSZJOA2xk+ctLZvBFJ+GAL8rDWBC5SXDvvEzswYInGSvEZR6d2miaV5Cg"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
