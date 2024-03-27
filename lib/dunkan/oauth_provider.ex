@@ -7,7 +7,7 @@ defmodule Dunkan.OauthProvider do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "oauth_providers" do
-    field :name, :string
+    field :name, Ecto.Enum, values: [:google, :apple_id, :facebook]
     field :uid, :string
 
     belongs_to :user, User

@@ -5,7 +5,7 @@ defmodule Dunkan.UsersTest do
   alias Dunkan.Contexts.Users.Auth.PasswordUtility
 
   describe "user changeset" do
-    @profile_changes %{displayed_name: "Michael Jordan", type: :player}
+    @profile_attrs %{displayed_name: "Michael Jordan", type: :player}
 
     @valid_email "test.check.@email.co"
     @invalid_email "test.check.@email"
@@ -14,12 +14,14 @@ defmodule Dunkan.UsersTest do
     @valid_phone_number "+31680213398"
     @invalid_phone_number "123457543"
 
-    @oauth_providers_change %{name: "google", uid: "1234"}
+    @oauth_providers_attrs %{name: "google", uid: "1234"}
+    @oauth_providers_change %{name: :google, uid: "1234"}
+
     @valid_attrs %{
       email: @valid_email,
       hash_password: @valid_password,
-      profile: @profile_changes,
-      oauth_providers: [@oauth_providers_change]
+      profile: @profile_attrs,
+      oauth_providers: [@oauth_providers_attrs]
     }
 
     test "changeset/2 returns valid user changeset with hashed password and relations" do
@@ -28,7 +30,7 @@ defmodule Dunkan.UsersTest do
                  email: @valid_email,
                  hash_password: hashed_password,
                  profile: %Ecto.Changeset{
-                   changes: @profile_changes,
+                   changes: @profile_attrs,
                    valid?: true
                  },
                  oauth_providers: [
@@ -48,7 +50,7 @@ defmodule Dunkan.UsersTest do
       assert %Ecto.Changeset{
                changes: %{
                  profile: %Ecto.Changeset{
-                   changes: @profile_changes,
+                   changes: @profile_attrs,
                    valid?: true
                  }
                },
