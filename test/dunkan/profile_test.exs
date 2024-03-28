@@ -1,7 +1,6 @@
 defmodule Dunkan.ProfileTest do
   use Dunkan.DataCase
 
-  # alias Dunkan.User
   alias Dunkan.Profile
 
   describe "changeset" do

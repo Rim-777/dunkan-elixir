@@ -1,4 +1,4 @@
-defmodule Dunkan.UsersTest do
+defmodule Dunkan.UserTest do
   use Dunkan.DataCase
 
   alias Dunkan.User
@@ -19,7 +19,7 @@ defmodule Dunkan.UsersTest do
 
     @valid_attrs %{
       email: @valid_email,
-      hash_password: @valid_password,
+      password: @valid_password,
       profile: @profile_attrs,
       oauth_providers: [@oauth_providers_attrs]
     }
@@ -28,7 +28,7 @@ defmodule Dunkan.UsersTest do
       assert %Ecto.Changeset{
                changes: %{
                  email: @valid_email,
-                 hash_password: hashed_password,
+                 password: hashed_password,
                  profile: %Ecto.Changeset{
                    changes: @profile_attrs,
                    valid?: true
@@ -40,7 +40,7 @@ defmodule Dunkan.UsersTest do
                valid?: true
              } = User.changeset(%User{}, @valid_attrs)
 
-      assert PasswordUtility.validate_password(@valid_attrs.hash_password, hashed_password) ==
+      assert PasswordUtility.validate_password(@valid_attrs.password, hashed_password) ==
                true
     end
 
@@ -79,7 +79,7 @@ defmodule Dunkan.UsersTest do
     end
 
     test "changeset/2 returns error if email or phone_number missing" do
-      invalid_attrs = %{hash_password: @valid_password}
+      invalid_attrs = %{password: @valid_password}
 
       assert %Ecto.Changeset{
                valid?: false,
@@ -88,7 +88,7 @@ defmodule Dunkan.UsersTest do
     end
 
     test "changeset/2 returns error if email or phone_number invalid format" do
-      invalid_attrs = %{hash_password: @valid_password, phone_number: @invalid_phone_number}
+      invalid_attrs = %{password: @valid_password, phone_number: @invalid_phone_number}
 
       assert %Ecto.Changeset{
                valid?: false,
@@ -99,7 +99,7 @@ defmodule Dunkan.UsersTest do
     end
 
     test "changeset/2 returns error if email has invalid format" do
-      invalid_attrs = %{hash_password: @valid_password, email: @invalid_email}
+      invalid_attrs = %{password: @valid_password, email: @invalid_email}
 
       assert %Ecto.Changeset{
                valid?: false,
@@ -112,17 +112,17 @@ defmodule Dunkan.UsersTest do
 
       assert %Ecto.Changeset{
                valid?: false,
-               errors: [hash_password: {"can't be blank", [validation: :required]}]
+               errors: [password: {"can't be blank", [validation: :required]}]
              } = User.changeset(%User{}, invalid_attrs)
     end
 
     test "changeset/2 returns error if password is too short" do
-      invalid_attrs = %{email: @valid_email, hash_password: @invalid_password}
+      invalid_attrs = %{email: @valid_email, password: @invalid_password}
 
       assert %Ecto.Changeset{
                valid?: false,
                errors: [
-                 hash_password:
+                 password:
                    {"Min length 8 symbols",
                     [count: 8, validation: :length, kind: :min, type: :string]}
                ]

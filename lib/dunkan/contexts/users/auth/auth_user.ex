@@ -4,7 +4,7 @@ defmodule Dunkan.Contexts.Users.Auth.AuthUser do
   alias Dunkan.User
   alias Dunkan.Contexts.Users.Auth.PasswordUtility
 
-  def exec(%User{hash_password: hash_password} = user, password) do
+  def exec(%User{password: hash_password} = user, password) do
     PasswordUtility.validate_password(password, hash_password)
     |> case do
       true -> create_token(user, :access)

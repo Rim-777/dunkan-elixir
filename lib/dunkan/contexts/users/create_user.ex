@@ -1,4 +1,4 @@
-defmodule Dunkan.Contexts.Users.Create.WithRelations do
+defmodule Dunkan.Contexts.Users.CreateUser do
   @moduledoc """
   The Users create with relations context.
   """
@@ -8,9 +8,11 @@ defmodule Dunkan.Contexts.Users.Create.WithRelations do
 
   alias Dunkan.User
 
-  def create_user(attrs \\ %{}) do
+  def with_relations(attrs \\ %{}) do
+    attrs = build_attrs(attrs)
+
     %User{}
-    |> User.changeset(build_attrs(attrs))
+    |> User.changeset(attrs)
     |> Repo.insert()
   end
 

@@ -9,7 +9,7 @@ defmodule Dunkan.User do
   @foreign_key_type :binary_id
   schema "users" do
     field :email, :string
-    field :hash_password, :string
+    field :password, :string
     field :phone_number, :string
 
     has_one :profile, Profile
@@ -21,13 +21,13 @@ defmodule Dunkan.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :hash_password, :phone_number])
+    |> cast(attrs, [:email, :password, :phone_number])
     |> cast_assoc(:profile)
     |> cast_assoc(:oauth_providers)
     |> validate_phone_number()
     |> validate_email()
     |> validate_password()
-    |> validate_required([:hash_password])
+    |> validate_required([:password])
     |> put_password_hash()
   end
 
@@ -54,12 +54,12 @@ defmodule Dunkan.User do
 
   defp validate_password(changeset) do
     changeset
-    |> validate_required([:hash_password])
-    |> validate_length(:hash_password, min: 8, message: "Min length 8 symbols")
+    |> validate_required([:password])
+    |> validate_length(:password, min: 8, message: "Min length 8 symbols")
   end
 
-  defp put_password_hash(%Ecto.Changeset{changes: %{hash_password: password}} = changeset) do
-    change(changeset, hash_password: PasswordUtility.hash_password(password))
+  defp put_password_hash(%Ecto.Changeset{changes: %{password: password}} = changeset) do
+    change(changeset, password: PasswordUtility.hash_password(password))
   end
 
   defp put_password_hash(changeset), do: changeset
