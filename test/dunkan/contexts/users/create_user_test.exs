@@ -20,12 +20,12 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
     test "Create.with_relation/1 creates a user with relations" do
       assert {:ok,
               %User{
-                id: user_id,
+                id: _user_id,
                 email: @email,
                 password: _hashed_password,
                 phone_number: nil,
                 profile: %Profile{
-                  id: profile_id,
+                  id: _profile_id,
                   first_name: nil,
                   last_name: nil,
                   middle_name: nil,
@@ -35,7 +35,7 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
                 },
                 oauth_providers: [
                   %OauthProvider{
-                    id: provider_id,
+                    id: _provider_id,
                     name: :facebook,
                     uid: @oauth_provider_uid
                   }

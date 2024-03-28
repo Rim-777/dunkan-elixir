@@ -63,10 +63,10 @@ defmodule Dunkan.Contexts.Users.GetUser do
 
   def by_oauth_provider(%{name: provider_name, uid: user_uid}) do
     query =
-      from oauth_provider in OauthProvider,
-        preload: [:user],
-        where: oauth_provider.name == ^provider_name and oauth_provider.uid == ^user_uid,
-        select: oauth_provider.user
+      from user in User,
+        join: oauth_provider in OauthProvider,
+        preload: [:profile, :oauth_providers],
+        where: oauth_provider.name == ^provider_name and oauth_provider.uid == ^user_uid
 
     Repo.one(query)
   end

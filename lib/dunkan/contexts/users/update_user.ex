@@ -1,6 +1,6 @@
 defmodule Dunkan.Contexts.Users.UpdateUser do
   @moduledoc """
-  The Users create with relations context.
+  The update User context.
   """
 
   import Ecto.Query, warn: false
