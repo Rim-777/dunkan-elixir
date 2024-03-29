@@ -1,10 +1,10 @@
-defmodule Dunkan.Contexts.Users.Auth.AuthUser do
+defmodule Dunkan.Contexts.Users.AuthUser do
   @token_types [:access, :reset, :admin]
   alias Dunkan.Contexts.Users.Auth.Guardian
   alias Dunkan.User
   alias Dunkan.Contexts.Users.Auth.PasswordUtility
 
-  def exec(%User{password: hash_password} = user, password) do
+  def call(%User{password: hash_password} = user, password) do
     PasswordUtility.validate_password(password, hash_password)
     |> case do
       true -> create_token(user, :access)
