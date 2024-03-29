@@ -15,6 +15,14 @@
 #     end
 #   end
 
+# |> case do
+#   %User{email: ^email} = user ->
+#     UpdateUser.add_oauth_provider(user, provider_attrs)
+
+#   _ ->
+#     nil
+# end
+
 #   defp find_or_create_user(attrs) do
 #     %{
 #       oauth_provider: %{name: provider_name, uid: user_uid} = provider_attrs,

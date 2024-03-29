@@ -11,10 +11,10 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
     @oauth_provider_uid "75cc3264-7c27-4877-a8bf-29605d98f762"
 
     @attributes %{
-      email: "dummy@test-mail.com",
+      email: @email,
       password: "#Test1234567",
-      profile: %{type: "player", displayed_name: "Michael Jordan"},
-      oauth_provider: %{name: "facebook", uid: "75cc3264-7c27-4877-a8bf-29605d98f762"}
+      profile: %{type: "player", displayed_name: @displayed_name},
+      oauth_provider: %{name: "facebook", uid: @oauth_provider_uid}
     }
 
     test "Create.with_relation/1 creates a user with relations" do
