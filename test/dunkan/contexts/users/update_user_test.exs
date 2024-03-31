@@ -8,7 +8,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
   alias Dunkan.Contexts.Users.GetUser
 
   describe "add_oauth_provider" do
-    test "qwe" do
+    test "add_oauth_provider/1" do
       attrs = %{name: "google", uid: "some-uid-777777777"}
 
       user =

@@ -3,7 +3,7 @@ defmodule Dunkan.User do
   import Ecto.Changeset
   alias Dunkan.Profile
   alias Dunkan.OauthProvider
-  alias Dunkan.Contexts.Users.Auth.PasswordUtility
+  alias Dunkan.Contexts.Users.AuthUserContext.PasswordUtility
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

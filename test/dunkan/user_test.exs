@@ -2,7 +2,7 @@ defmodule Dunkan.UserTest do
   use Dunkan.DataCase
 
   alias Dunkan.User
-  alias Dunkan.Contexts.Users.Auth.PasswordUtility
+  alias Dunkan.Contexts.Users.AuthUserContext.PasswordUtility
 
   describe "user changeset" do
     @profile_attrs %{displayed_name: "Michael Jordan", type: :player}

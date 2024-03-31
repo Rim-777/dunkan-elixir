@@ -20,5 +20,6 @@ defmodule Dunkan.OauthProvider do
     oauth_provider
     |> cast(attrs, [:name, :uid])
     |> validate_required([:name, :uid])
+    |> unique_constraint([:name, :user_id])
   end
 end

@@ -1,4 +1,4 @@
-defmodule Dunkan.Contexts.Users.Auth.PasswordUtility do
+defmodule Dunkan.Contexts.Users.AuthUserContext.PasswordUtility do
   def validate_password(password, hash_password) do
     Bcrypt.verify_pass(password, hash_password)
   end

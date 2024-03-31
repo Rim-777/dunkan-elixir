@@ -1,4 +1,4 @@
-defmodule Dunkan.Contexts.Users.FindOrCreateUser do
+defmodule Dunkan.Contexts.Users.FindOrCreateContext do
   alias Dunkan.Contexts.Users.GetUser
   alias Dunkan.Contexts.Users.CreateUser
 
@@ -6,7 +6,7 @@ defmodule Dunkan.Contexts.Users.FindOrCreateUser do
     %{
       oauth_provider: %{name: _provider_name, uid: _user_uid} = provider_attrs,
       email: email,
-      password: _hash_password
+      password: _password
     } = attrs
 
     find_user({email, provider_attrs}) || create_user(attrs)
@@ -25,6 +25,7 @@ defmodule Dunkan.Contexts.Users.FindOrCreateUser do
   end
 
   defp create_user(attrs) do
-    CreateUser.with_relations(attrs)
+    {:ok, user} = CreateUser.with_relations(attrs)
+    user
   end
 end

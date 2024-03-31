@@ -1,9 +1,9 @@
-defmodule Dunkan.Contexts.Users.FindOrCreateUserTest do
+defmodule Dunkan.Contexts.Users.FindOrCreateContextTest do
   use Dunkan.DataCase
   alias Dunkan.User
   alias Dunkan.Profile
   alias Dunkan.OauthProvider
-  alias Dunkan.Contexts.Users.FindOrCreateUser
+  alias Dunkan.Contexts.Users.FindOrCreateContext
 
   import Dunkan.UsersFixtures
 
@@ -33,7 +33,7 @@ defmodule Dunkan.Contexts.Users.FindOrCreateUserTest do
                id: ^user_id,
                profile: %Profile{id: ^profile_id},
                oauth_providers: [%OauthProvider{id: ^provider_id}]
-             } = FindOrCreateUser.by_oauth_attrs(@attrs)
+             } = FindOrCreateContext.by_oauth_attrs(@attrs)
     end
 
     test "by_oauth_attrs/1 finds a user by email" do
@@ -42,7 +42,7 @@ defmodule Dunkan.Contexts.Users.FindOrCreateUserTest do
       target_user =
         @attrs
         |> Map.replace(:oauth_provider, %{name: "google", uid: @oauth_provider_uid_google})
-        |> FindOrCreateUser.by_oauth_attrs()
+        |> FindOrCreateContext.by_oauth_attrs()
 
       %User{
         id: user_id,

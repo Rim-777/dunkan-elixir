@@ -12,5 +12,7 @@ defmodule Dunkan.Repo.Migrations.CreateOauthProviders do
     end
 
     create index(:oauth_providers, [:user_id])
+
+    create unique_index(:oauth_providers, [:name, :user_id])
   end
 end
