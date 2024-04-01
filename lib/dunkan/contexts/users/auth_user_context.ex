@@ -12,12 +12,6 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
       user
       |> add_new_provider_if_given(provider_attrs)
       |> Tokenizer.create_token(:access)
-    else
-      :error ->
-        {:error, :unauthorized}
-
-      _other_error ->
-        :unexpected_error
     end
   end
 
@@ -38,10 +32,10 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
     end
   end
 
-  defp validate_password(%User{password: hashed_password} = user, password) do
+  defp validate_password({:ok, %User{password: hashed_password} = user}, password) do
     case PasswordUtility.validate_password(password, hashed_password) do
       true -> {:ok, user}
-      false -> {:error, :unauthorized}
+      false -> {:error, :invalid_password}
     end
   end
 

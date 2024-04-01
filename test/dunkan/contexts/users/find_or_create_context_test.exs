@@ -29,11 +29,12 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContextTest do
         oauth_providers: [%OauthProvider{id: provider_id}]
       } = user
 
-      assert %User{
-               id: ^user_id,
-               profile: %Profile{id: ^profile_id},
-               oauth_providers: [%OauthProvider{id: ^provider_id}]
-             } = FindOrCreateContext.by_oauth_attrs(@attrs)
+      assert {:ok,
+              %User{
+                id: ^user_id,
+                profile: %Profile{id: ^profile_id},
+                oauth_providers: [%OauthProvider{id: ^provider_id}]
+              }} = FindOrCreateContext.by_oauth_attrs(@attrs)
     end
 
     test "by_oauth_attrs/1 finds a user by email" do
@@ -50,14 +51,15 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContextTest do
         oauth_providers: [%OauthProvider{name: :facebook}]
       } = user
 
-      assert %User{
-               id: ^user_id,
-               email: @email,
-               profile: %Profile{id: ^profile_id},
-               oauth_providers: [
-                 %OauthProvider{name: :facebook, uid: @oauth_provider_uid_facebook}
-               ]
-             } = target_user
+      assert {:ok,
+              %User{
+                id: ^user_id,
+                email: @email,
+                profile: %Profile{id: ^profile_id},
+                oauth_providers: [
+                  %OauthProvider{name: :facebook, uid: @oauth_provider_uid_facebook}
+                ]
+              }} = target_user
     end
   end
 end

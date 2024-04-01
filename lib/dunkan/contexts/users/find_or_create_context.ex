@@ -1,6 +1,7 @@
 defmodule Dunkan.Contexts.Users.FindOrCreateContext do
   alias Dunkan.Contexts.Users.GetUser
   alias Dunkan.Contexts.Users.CreateUser
+  alias Dunkan.User
 
   def by_oauth_attrs(attrs) do
     %{
@@ -9,7 +10,16 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContext do
       password: _password
     } = attrs
 
-    find_user({email, provider_attrs}) || create_user(attrs)
+    find_user({email, provider_attrs})
+    |> case do
+      nil ->
+        create_user(attrs)
+
+      %User{} = user ->
+        {:ok, user}
+    end
+
+    # add transaction with lock
   end
 
   defp find_user({email, provider_attrs}) do
@@ -25,7 +35,6 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContext do
   end
 
   defp create_user(attrs) do
-    {:ok, user} = CreateUser.with_relations(attrs)
-    user
+    CreateUser.with_relations(attrs)
   end
 end

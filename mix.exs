@@ -46,7 +46,8 @@ defmodule Dunkan.MixProject do
       {:guardian_db, "~> 2.0"},
       {:bcrypt_elixir, "~> 3.0"},
       {:ex_machina, "~> 2.7.0", only: :test},
-      {:mock, "~> 0.3.0", only: :test}
+      {:mock, "~> 0.3.0", only: :test},
+      {:ex_json_schema, "~> 0.10.2"}
     ]
   end
 

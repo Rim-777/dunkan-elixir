@@ -3,6 +3,6 @@ defmodule DunkanWeb.OauthController do
 
   action_fallback DunkanWeb.FallbackController
 
-  # def authenticate!(conn, %{"account" => account_params}) do
+  # def auth_with_oauth_provider!(conn, %{"user" => oauth_params}) do
   # end
 end
