@@ -1,10 +1,13 @@
 defmodule DunkanWeb.Contracts.OauthContract do
+  alias ExJsonSchema.Validator
+  alias ExJsonSchema.Schema
+
   @schema %{
             "type" => "object",
             "additionalProperties" => false,
-            "required" => ["user"],
+            "required" => ["oauth_user"],
             "properties" => %{
-              "user" => %{
+              "oauth_user" => %{
                 "type" => "object",
                 "additionalProperties" => false,
                 "required" => ["email", "password", "oauth_provider", "profile"],
@@ -33,7 +36,7 @@ defmodule DunkanWeb.Contracts.OauthContract do
                   "profile" => %{
                     "type" => "object",
                     "additionalProperties" => false,
-                    "required" => ["displayed_name", "photo_url"],
+                    "required" => ["displayed_name"],
                     "properties" => %{
                       "displayed_name" => %{
                         "type" => "string"
@@ -47,9 +50,14 @@ defmodule DunkanWeb.Contracts.OauthContract do
               }
             }
           }
-          |> ExJsonSchema.Schema.resolve()
+          |> Schema.resolve()
 
   def validate(%{} = map) do
-    ExJsonSchema.Validator.validate(@schema, map)
+    with :ok <- Validator.validate(@schema, map) do
+      {:ok, map["oauth_user"]}
+    else
+      {:error, errors} ->
+        {:json_schema_error, errors}
+    end
   end
 end

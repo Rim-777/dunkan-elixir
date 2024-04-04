@@ -21,6 +21,6 @@ defmodule Dunkan.Profile do
   def changeset(profile, attrs) do
     profile
     |> cast(attrs, [:first_name, :last_name, :middle_name, :displayed_name, :gender, :type])
-    |> validate_required([:displayed_name, :type])
+    |> validate_required([:displayed_name])
   end
 end

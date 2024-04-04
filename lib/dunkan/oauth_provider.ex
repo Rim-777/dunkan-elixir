@@ -20,6 +20,9 @@ defmodule Dunkan.OauthProvider do
     oauth_provider
     |> cast(attrs, [:name, :uid])
     |> validate_required([:name, :uid])
-    |> unique_constraint([:name, :user_id])
+    |> unsafe_validate_unique([:name, :uid], Dunkan.Repo,
+      message: "Combination of Provider name and UID must be unique"
+    )
+    |> unique_constraint([:name, :uid])
   end
 end

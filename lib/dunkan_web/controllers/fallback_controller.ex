@@ -18,7 +18,16 @@ defmodule DunkanWeb.FallbackController do
   def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
-    |> put_view(html: DunkanWeb.ErrorHTML, json: DunkanWeb.ErrorJSON)
+    |> put_view(json: DunkanWeb.ErrorJSON)
     |> render(:"404")
+  end
+
+  # This clause is an example of how to handle bad request.
+  def call(conn, {:json_schema_error, errors}) do
+    conn
+    |> put_status(:bad_request)
+    |> put_view(json: DunkanWeb.ErrorJSON)
+    |> assign(:json_schema_error, errors)
+    |> render(:"400")
   end
 end

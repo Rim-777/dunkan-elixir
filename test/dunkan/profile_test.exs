@@ -18,15 +18,6 @@ defmodule Dunkan.ProfileTest do
              } = Profile.changeset(%Profile{}, @min_valid_attrs)
     end
 
-    test "changeset/2 with missing type" do
-      missing_type_attrs = @min_valid_attrs |> Map.reject(fn {k, _v} -> k == :type end)
-
-      assert %Ecto.Changeset{
-               valid?: false,
-               errors: [type: {"can't be blank", [validation: :required]}]
-             } = Profile.changeset(%Profile{}, missing_type_attrs)
-    end
-
     test "changeset/2 with incorrect type" do
       incorrect_type_attrs = @min_valid_attrs |> Map.replace(:type, :wrong_type)
 

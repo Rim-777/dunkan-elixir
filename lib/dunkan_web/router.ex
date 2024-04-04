@@ -7,5 +7,6 @@ defmodule DunkanWeb.Router do
 
   scope "/api", DunkanWeb do
     pipe_through :api
+    post "/auth/create", OauthController, :create
   end
 end

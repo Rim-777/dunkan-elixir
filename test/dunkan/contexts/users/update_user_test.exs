@@ -8,17 +8,37 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
   alias Dunkan.Contexts.Users.GetUser
 
   describe "add_oauth_provider" do
-    test "add_oauth_provider/1" do
-      attrs = %{name: "google", uid: "some-uid-777777777"}
+    @attrs %{name: "google", uid: "75cc3264-7c27-4877-a8bf-29605d98f777"}
 
-      user =
-        %User{id: user_id, oauth_providers: [%OauthProvider{name: :facebook}]} = user_fixture()
+    setup do
+      {:ok, user: %User{oauth_providers: [%OauthProvider{name: :facebook}]} = user_fixture()}
+    end
+
+    test "add_oauth_provider/1", setup do
+      user = %User{id: user_id} = setup[:user]
 
       assert {:ok, %OauthProvider{user_id: ^user_id}} =
-               UpdateUser.add_oauth_provider(user, attrs)
+               UpdateUser.add_oauth_provider(user, @attrs)
 
-      assert [%OauthProvider{name: :google}, %OauthProvider{name: :facebook}] =
+      assert [%OauthProvider{name: :facebook}, %OauthProvider{name: :google}] =
                GetUser.by_id(user_id).oauth_providers
+    end
+
+    test "add_oauth_provider/1 should not create duplications", setup do
+      user = %User{id: user_id} = setup[:user]
+
+      assert {:ok, %OauthProvider{user_id: ^user_id}} =
+               UpdateUser.add_oauth_provider(user, @attrs)
+
+      assert {:error,
+              %Ecto.Changeset{
+                errors: [
+                  name:
+                    {"Combination of Provider name and UID must be unique",
+                     [validation: :unsafe_unique, fields: [:name, :uid]]}
+                ]
+              }} =
+               UpdateUser.add_oauth_provider(user, @attrs)
     end
   end
 end

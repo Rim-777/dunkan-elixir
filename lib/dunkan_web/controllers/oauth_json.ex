@@ -1,25 +1,34 @@
 defmodule DunkanWeb.OauthJSON do
-  alias Dunkan.Account
+  alias Dunkan.User
+  alias Dunkan.Profile
+  alias DunkanWeb.ProfileJSON
 
-  # @doc """
-  # Renders a list of accounts.
-  # """
-  # def index(%{accounts: accounts}) do
-  #   %{data: for(account <- accounts, do: data(account))}
-  # end
+  @doc """
+  Renders a user account.
+  """
 
-  # @doc """
-  # Renders a single account.
-  # """
-  # def show(%{account: account}) do
-  #   %{data: data(account)}
-  # end
+  def show(%{user: user}) do
+    %{
+      data: data(user)
+    }
+  end
 
-  # defp data(%Account{} = account) do
-  #   %{
-  #     id: account.id,
-  #     email: account.email,
-  #     hash_password: account.hash_password
-  #   }
-  # end
+  defp data(%User{
+         id: user_id,
+         email: email,
+         phone_number: phone_number,
+         profile: %Profile{} = profile
+       }) do
+    %{
+      id: user_id,
+      type: "user",
+      attributes: %{
+        email: email,
+        phone_number: phone_number
+      },
+      relationships: %{
+        profile: ProfileJSON.show(%{profile: profile})
+      }
+    }
+  end
 end
