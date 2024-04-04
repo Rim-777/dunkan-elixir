@@ -5,7 +5,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
   alias Dunkan.User
   alias Dunkan.OauthProvider
   alias Dunkan.Contexts.Users.UpdateUser
-  alias Dunkan.Contexts.Users.GetUser
+  alias Dunkan.Contexts.Users.GetUserContext
 
   describe "add_oauth_provider" do
     @attrs %{name: "google", uid: "75cc3264-7c27-4877-a8bf-29605d98f777"}
@@ -21,7 +21,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
                UpdateUser.add_oauth_provider(user, @attrs)
 
       assert [%OauthProvider{name: :facebook}, %OauthProvider{name: :google}] =
-               GetUser.by_id(user_id).oauth_providers
+               GetUserContext.by_id(user_id).oauth_providers
     end
 
     test "add_oauth_provider/1 should not create duplications", setup do

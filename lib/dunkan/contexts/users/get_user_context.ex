@@ -1,4 +1,4 @@
-defmodule Dunkan.Contexts.Users.GetUser do
+defmodule Dunkan.Contexts.Users.GetUserContext do
   @moduledoc """
   The Users Get by ID context.
   """

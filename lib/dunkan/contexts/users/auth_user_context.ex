@@ -1,7 +1,7 @@
 defmodule Dunkan.Contexts.Users.AuthUserContext do
   alias Dunkan.Contexts.Users.FindOrCreateContext
   alias Dunkan.Contexts.Users.UpdateUser
-  alias Dunkan.Contexts.Users.GetUser
+  alias Dunkan.Contexts.Users.GetUserContext
   alias Dunkan.User
   alias Dunkan.OauthProvider
   alias Dunkan.Contexts.Users.AuthUserContext.PasswordUtility
@@ -28,7 +28,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
         {:ok, %OauthProvider{user_id: user_id}} =
           UpdateUser.add_oauth_provider(user, provider_attrs)
 
-        GetUser.by_id(user_id)
+        GetUserContext.by_id(user_id)
     end
   end
 

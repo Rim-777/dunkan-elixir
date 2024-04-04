@@ -4,7 +4,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
   alias Dunkan.User
   alias Dunkan.Profile
   alias Dunkan.OauthProvider
-  alias Dunkan.Contexts.Users.GetUser
+  alias Dunkan.Contexts.Users.GetUserContext
 
   describe "getting users" do
     @email "dummy@test-mail.com"
@@ -31,7 +31,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
                    uid: "75cc3264-7c27-4877-a8bf-29605d98f762"
                  }
                ]
-             } = GetUser.by_id(id)
+             } = GetUserContext.by_id(id)
     end
 
     test "by_oauth_provider/1 returns a stored user with its relations" do
@@ -57,7 +57,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
                  }
                ]
              } =
-               GetUser.by_oauth_provider(%{
+               GetUserContext.by_oauth_provider(%{
                  name: :facebook,
                  uid: "75cc3264-7c27-4877-a8bf-29605d98f762"
                })
@@ -86,7 +86,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
                  }
                ]
              } =
-               GetUser.by_email(@email)
+               GetUserContext.by_email(@email)
     end
   end
 end

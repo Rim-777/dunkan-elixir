@@ -1,5 +1,5 @@
 defmodule Dunkan.Contexts.Users.FindOrCreateContext do
-  alias Dunkan.Contexts.Users.GetUser
+  alias Dunkan.Contexts.Users.GetUserContext
   alias Dunkan.Contexts.Users.CreateUserContext
   alias Dunkan.User
 
@@ -27,11 +27,11 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContext do
   end
 
   defp find_by(%{name: _name, uid: _uid} = provider_attrs) do
-    GetUser.by_oauth_provider(provider_attrs)
+    GetUserContext.by_oauth_provider(provider_attrs)
   end
 
   defp find_by(email) do
-    GetUser.by_email(email)
+    GetUserContext.by_email(email)
   end
 
   defp create_user(attrs) do
