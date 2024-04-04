@@ -1,6 +1,6 @@
 defmodule Dunkan.Contexts.Users.FindOrCreateContext do
   alias Dunkan.Contexts.Users.GetUser
-  alias Dunkan.Contexts.Users.CreateUser
+  alias Dunkan.Contexts.Users.CreateUserContext
   alias Dunkan.User
 
   def by_oauth_attrs(attrs) do
@@ -35,6 +35,6 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContext do
   end
 
   defp create_user(attrs) do
-    CreateUser.with_relations(attrs)
+    CreateUserContext.create_with_relations(attrs)
   end
 end

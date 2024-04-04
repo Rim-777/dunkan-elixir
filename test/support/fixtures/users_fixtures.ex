@@ -1,5 +1,6 @@
 defmodule Dunkan.UsersFixtures do
   use ExMachina.Ecto, repo: Dunkan.Repo
+  alias Dunkan.Contexts.Users.CreateUserContext
 
   @moduledoc """
   This module defines test helpers for creating
@@ -18,7 +19,7 @@ defmodule Dunkan.UsersFixtures do
         profile: %{type: "player", displayed_name: "Michael Jordan"},
         oauth_provider: %{name: "facebook", uid: "75cc3264-7c27-4877-a8bf-29605d98f762"}
       })
-      |> Dunkan.Contexts.Users.CreateUser.with_relations()
+      |> CreateUserContext.create_with_relations()
 
     user
   end

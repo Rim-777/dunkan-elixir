@@ -3,7 +3,7 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
   alias Dunkan.User
   alias Dunkan.Profile
   alias Dunkan.OauthProvider
-  alias Dunkan.Contexts.Users.CreateUser
+  alias Dunkan.Contexts.Users.CreateUserContext
 
   describe "with_relation" do
     @email "dummy@test-mail.com"
@@ -40,7 +40,7 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
                     uid: @oauth_provider_uid
                   }
                 ]
-              }} = CreateUser.with_relations(@attributes)
+              }} = CreateUserContext.create_with_relations(@attributes)
     end
   end
 end

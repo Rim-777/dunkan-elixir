@@ -1,4 +1,4 @@
-defmodule Dunkan.Contexts.Users.CreateUser do
+defmodule Dunkan.Contexts.Users.CreateUserContext do
   @moduledoc """
   The Users create with relations context.
   """
@@ -8,7 +8,7 @@ defmodule Dunkan.Contexts.Users.CreateUser do
 
   alias Dunkan.User
 
-  def with_relations(attrs \\ %{}) do
+  def create_with_relations(attrs \\ %{}) do
     attrs = build_attrs(attrs)
 
     %User{}
