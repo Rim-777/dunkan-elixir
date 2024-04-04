@@ -4,7 +4,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
   import Dunkan.UsersFixtures
   alias Dunkan.User
   alias Dunkan.OauthProvider
-  alias Dunkan.Contexts.Users.UpdateUser
+  alias Dunkan.Contexts.Users.UpdateUserContext
   alias Dunkan.Contexts.Users.GetUserContext
 
   describe "add_oauth_provider" do
@@ -18,7 +18,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
       user = %User{id: user_id} = setup[:user]
 
       assert {:ok, %OauthProvider{user_id: ^user_id}} =
-               UpdateUser.add_oauth_provider(user, @attrs)
+               UpdateUserContext.add_oauth_provider(user, @attrs)
 
       assert [%OauthProvider{name: :facebook}, %OauthProvider{name: :google}] =
                GetUserContext.by_id(user_id).oauth_providers
@@ -28,7 +28,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
       user = %User{id: user_id} = setup[:user]
 
       assert {:ok, %OauthProvider{user_id: ^user_id}} =
-               UpdateUser.add_oauth_provider(user, @attrs)
+               UpdateUserContext.add_oauth_provider(user, @attrs)
 
       assert {:error,
               %Ecto.Changeset{
@@ -38,7 +38,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
                      [validation: :unsafe_unique, fields: [:name, :uid]]}
                 ]
               }} =
-               UpdateUser.add_oauth_provider(user, @attrs)
+               UpdateUserContext.add_oauth_provider(user, @attrs)
     end
   end
 end

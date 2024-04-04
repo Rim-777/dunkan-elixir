@@ -1,6 +1,6 @@
 defmodule Dunkan.Contexts.Users.AuthUserContext.Tokenizer do
   @token_types [:access, :refresh, :admin]
-  alias Dunkan.Contexts.Users.AuthUser.Guardian
+  alias Dunkan.Contexts.Users.AuthUserContext.Guardian
   alias Dunkan.User
 
   def create_token(%User{} = user, token_type) when token_type in @token_types do

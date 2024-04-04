@@ -1,4 +1,4 @@
-defmodule Dunkan.Contexts.Users.UpdateUser do
+defmodule Dunkan.Contexts.Users.UpdateUserContext do
   @moduledoc """
   The update User context.
   """

@@ -1,6 +1,6 @@
-defmodule Dunkan.Contexts.Users.AuthUser.Guardian do
+defmodule Dunkan.Contexts.Users.AuthUserContext.Guardian do
   use Guardian, otp_app: :dunkan
-  alias Dunkan.Contexts.Users.GetUser
+  alias Dunkan.Contexts.Users.GetUserContext
 
   def subject_for_token(%{id: id}, _claims) do
     sub = to_string(id)
@@ -12,7 +12,7 @@ defmodule Dunkan.Contexts.Users.AuthUser.Guardian do
   end
 
   def resource_from_claims(%{"sub" => id}) do
-    resource = GetUser.by_id(id)
+    resource = GetUserContext.by_id(id)
     {:ok, resource}
   end
 

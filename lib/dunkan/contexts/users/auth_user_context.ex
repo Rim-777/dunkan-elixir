@@ -1,6 +1,6 @@
 defmodule Dunkan.Contexts.Users.AuthUserContext do
   alias Dunkan.Contexts.Users.FindOrCreateContext
-  alias Dunkan.Contexts.Users.UpdateUser
+  alias Dunkan.Contexts.Users.UpdateUserContext
   alias Dunkan.Contexts.Users.GetUserContext
   alias Dunkan.User
   alias Dunkan.OauthProvider
@@ -26,7 +26,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
 
       false ->
         {:ok, %OauthProvider{user_id: user_id}} =
-          UpdateUser.add_oauth_provider(user, provider_attrs)
+          UpdateUserContext.add_oauth_provider(user, provider_attrs)
 
         GetUserContext.by_id(user_id)
     end

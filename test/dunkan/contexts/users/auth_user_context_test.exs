@@ -2,9 +2,9 @@ defmodule Dunkan.Contexts.Users.AuthUserContextTest do
   use Dunkan.DataCase
 
   alias Dunkan.User
-  alias Dunkan.Contexts.Users.AuthUser.Guardian
+  alias Dunkan.Contexts.Users.AuthUserContext.Guardian
   alias Dunkan.Contexts.Users.AuthUserContext
-  alias Dunkan.Contexts.Users.UpdateUser
+  alias Dunkan.Contexts.Users.UpdateUserContext
 
   import Dunkan.UsersFixtures
   import Mock
@@ -27,19 +27,19 @@ defmodule Dunkan.Contexts.Users.AuthUserContextTest do
                              })
 
     test_with_mock "auth_with_oauth_provider/1 does not add a new oauth",
-                   UpdateUser,
+                   UpdateUserContext,
                    [:passthrough],
                    [] do
       assert {:ok, %User{id: user_id}, token} =
                AuthUserContext.auth_with_oauth_provider(@attrs)
 
-      assert_not_called(UpdateUser.add_oauth_provider(:_, :_))
+      assert_not_called(UpdateUserContext.add_oauth_provider(:_, :_))
 
       assert {:ok, _} = Guardian.decode_and_verify(token, %{typ: "access", sub: user_id})
     end
 
     test_with_mock "auth_with_oauth_provider/1 adds a new oauth provider",
-                   UpdateUser,
+                   UpdateUserContext,
                    [:passthrough],
                    [] do
       user = %User{id: user_id} = user_fixture(%{email: @email})
@@ -48,7 +48,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContextTest do
                AuthUserContext.auth_with_oauth_provider(@attrs_with_new_provider)
 
       assert_called(
-        UpdateUser.add_oauth_provider(user, %{name: "google", uid: @oauth_provider_uid})
+        UpdateUserContext.add_oauth_provider(user, %{name: "google", uid: @oauth_provider_uid})
       )
 
       assert {:ok, _} = Guardian.decode_and_verify(token, %{typ: "access", sub: user_id})
