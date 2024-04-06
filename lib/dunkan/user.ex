@@ -27,7 +27,6 @@ defmodule Dunkan.User do
     |> validate_phone_number()
     |> validate_email()
     |> validate_password()
-    |> validate_required([:password])
     |> put_password_hash()
   end
 

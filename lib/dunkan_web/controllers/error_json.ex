@@ -8,8 +8,6 @@ defmodule DunkanWeb.ErrorJSON do
 
   def render("400.json", assigns) do
     assigns.json_schema_error
-    |> Enum.map(&Tuple.to_list/1)
-    |> Enum.join(", ")
     |> detail()
   end
 

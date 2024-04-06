@@ -13,7 +13,7 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
     @attributes %{
       email: @email,
       password: "#Test1234567",
-      profile: %{type: "player", displayed_name: @displayed_name},
+      profile: %{profile_type: "player", displayed_name: @displayed_name},
       oauth_provider: %{name: "facebook", uid: @oauth_provider_uid}
     }
 
@@ -31,7 +31,7 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
                   middle_name: nil,
                   displayed_name: @displayed_name,
                   gender: nil,
-                  type: :player
+                  profile_type: :player
                 },
                 oauth_providers: [
                   %OauthProvider{

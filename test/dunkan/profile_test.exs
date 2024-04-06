@@ -6,24 +6,24 @@ defmodule Dunkan.ProfileTest do
   describe "changeset" do
     @min_valid_attrs %{
       displayed_name: "Timo Moss",
-      type: "player"
+      profile_type: "player"
     }
     test "changeset/2 is valid with minimum required attributes" do
       assert %Ecto.Changeset{
                changes: %{
                  displayed_name: "Timo Moss",
-                 type: :player
+                 profile_type: :player
                },
                valid?: true
              } = Profile.changeset(%Profile{}, @min_valid_attrs)
     end
 
     test "changeset/2 with incorrect type" do
-      incorrect_type_attrs = @min_valid_attrs |> Map.replace(:type, :wrong_type)
+      incorrect_type_attrs = @min_valid_attrs |> Map.replace(:profile_type, :wrong_type)
 
       assert %Ecto.Changeset{
                valid?: false,
-               errors: [type: {"is invalid", _reason}]
+               errors: [profile_type: {"is invalid", _reason}]
              } = Profile.changeset(%Profile{}, incorrect_type_attrs)
     end
 

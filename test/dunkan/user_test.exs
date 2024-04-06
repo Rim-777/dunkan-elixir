@@ -5,7 +5,7 @@ defmodule Dunkan.UserTest do
   alias Dunkan.Contexts.Users.AuthUserContext.PasswordUtility
 
   describe "user changeset" do
-    @profile_attrs %{displayed_name: "Michael Jordan", type: :player}
+    @profile_attrs %{displayed_name: "Michael Jordan", profile_type: :player}
 
     @valid_email "test.check.@email.co"
     @invalid_email "test.check.@email"

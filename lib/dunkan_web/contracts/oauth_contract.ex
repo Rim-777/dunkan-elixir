@@ -13,8 +13,7 @@ defmodule DunkanWeb.Contracts.OauthContract do
                 "required" => ["email", "password", "oauth_provider", "profile"],
                 "properties" => %{
                   "email" => %{
-                    "type" => "string",
-                    "format" => "email"
+                    "type" => "string"
                   },
                   "password" => %{
                     "type" => "string"
@@ -57,7 +56,7 @@ defmodule DunkanWeb.Contracts.OauthContract do
       {:ok, map["oauth_user"]}
     else
       {:error, errors} ->
-        {:json_schema_error, errors}
+        {:json_schema_error, Enum.map(errors, fn {k, v} -> %{v => k} end)}
     end
   end
 end

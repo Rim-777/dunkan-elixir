@@ -18,8 +18,6 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContext do
       %User{} = user ->
         {:ok, user}
     end
-
-    # add transaction with lock
   end
 
   defp find_user({email, provider_attrs}) do

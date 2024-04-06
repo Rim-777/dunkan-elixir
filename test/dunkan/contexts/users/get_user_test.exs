@@ -23,7 +23,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
                  middle_name: nil,
                  displayed_name: "Michael Jordan",
                  gender: nil,
-                 type: :player
+                 profile_type: :player
                },
                oauth_providers: [
                  %OauthProvider{
@@ -48,7 +48,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
                  middle_name: nil,
                  displayed_name: "Michael Jordan",
                  gender: nil,
-                 type: :player
+                 profile_type: :player
                },
                oauth_providers: [
                  %OauthProvider{
@@ -77,7 +77,7 @@ defmodule Dunkan.Contexts.Users.GetUserTest do
                  middle_name: nil,
                  displayed_name: "Michael Jordan",
                  gender: nil,
-                 type: :player
+                 profile_type: :player
                },
                oauth_providers: [
                  %OauthProvider{

@@ -2,7 +2,7 @@ defmodule DunkanWeb.ProfileJSON do
   alias Dunkan.Profile
 
   @doc """
-  Renders a single user.
+  Renders a associated profile.
   """
   def show(%{profile: profile}) do
     %{data: data(profile)}
@@ -16,7 +16,8 @@ defmodule DunkanWeb.ProfileJSON do
         first_name: profile.first_name,
         last_name: profile.last_name,
         displayed_name: profile.displayed_name,
-        type: profile.type
+        profile_type: profile.profile_type,
+        photo_url: profile.photo_url
       }
     }
   end

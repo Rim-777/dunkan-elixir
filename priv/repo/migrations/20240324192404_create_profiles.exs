@@ -10,7 +10,8 @@ defmodule Dunkan.Repo.Migrations.CreateProfiles do
       add :middle_name, :string
       add :displayed_name, :string
       add :gender, :string
-      add :type, :string
+      add :profile_type, :string
+      add :photo_url, :string
 
       add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 

@@ -8,7 +8,8 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
   alias Dunkan.Contexts.Users.AuthUserContext.Tokenizer
 
   def auth_with_oauth_provider(%{password: password, oauth_provider: provider_attrs} = attrs) do
-    with {:ok, user} <- find_or_create_user(attrs) |> validate_password(password) do
+    with {:ok, user} <- find_or_create_user(attrs),
+         {:ok, ^user} <- validate_password(user, password) do
       user
       |> add_new_provider_if_given(provider_attrs)
       |> Tokenizer.create_token(:access)
@@ -32,7 +33,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
     end
   end
 
-  defp validate_password({:ok, %User{password: hashed_password} = user}, password) do
+  defp validate_password(%User{password: hashed_password} = user, password) do
     case PasswordUtility.validate_password(password, hashed_password) do
       true -> {:ok, user}
       false -> {:error, :invalid_password}

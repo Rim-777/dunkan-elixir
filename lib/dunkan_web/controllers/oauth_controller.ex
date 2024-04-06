@@ -8,27 +8,19 @@ defmodule DunkanWeb.OauthController do
   action_fallback DunkanWeb.FallbackController
 
   def create(conn, oauth_params) do
-    with {:ok, valid_params} <- OauthContract.validate(oauth_params) do
-      with {:ok, %User{} = user, token} <-
-             Useful.atomize_map_keys(valid_params)
-             |> AuthUserContext.auth_with_oauth_provider() do
-        conn
-        |> put_status(:ok)
-        |> Plug.Conn.put_resp_header("Access-Token", token)
-        |> render(:show, user: user)
-      end
+    with {:ok, valid_params} <- OauthContract.validate(oauth_params),
+         {:ok, %User{} = user, token} <- oauth_with_valid_params(valid_params) do
+      conn
+      |> put_status(:ok)
+      |> Plug.Conn.put_session(:user_id, user.id)
+      |> Plug.Conn.put_resp_header("x-access-token", token)
+      |> render(:show, user: user)
     end
   end
-end
 
-# %{
-#   "oauth_user" => %{
-#     "email" => "timo.moss.123@gmail.co",
-#     "oauth_provider" => %{"name" => "google", "uid" => "123"},
-#     "password" => "qwepiuqwepiuqwe",
-#     "profile" => %{
-#       "displayed_name" => "Michele Jordan",
-#       "photo_url" => "https//:somephoto"
-#     }
-#   }
-# }
+  defp oauth_with_valid_params(valid_params) do
+    valid_params
+    |> Useful.atomize_map_keys()
+    |> AuthUserContext.auth_with_oauth_provider()
+  end
+end

@@ -9,8 +9,9 @@ defmodule Dunkan.Profile do
     field :last_name, :string
     field :middle_name, :string
     field :displayed_name, :string
+    field :photo_url, :string
     field :gender, Ecto.Enum, values: [:male, :female, :other]
-    field :type, Ecto.Enum, values: [:player, :fun, :parent, :club, :trainer]
+    field :profile_type, Ecto.Enum, values: [:player, :fun, :parent, :club, :trainer]
 
     belongs_to :user, User
 
@@ -20,7 +21,15 @@ defmodule Dunkan.Profile do
   @doc false
   def changeset(profile, attrs) do
     profile
-    |> cast(attrs, [:first_name, :last_name, :middle_name, :displayed_name, :gender, :type])
+    |> cast(attrs, [
+      :first_name,
+      :last_name,
+      :middle_name,
+      :displayed_name,
+      :photo_url,
+      :gender,
+      :profile_type
+    ])
     |> validate_required([:displayed_name])
   end
 end
