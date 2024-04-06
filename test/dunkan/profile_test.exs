@@ -18,7 +18,7 @@ defmodule Dunkan.ProfileTest do
              } = Profile.changeset(%Profile{}, @min_valid_attrs)
     end
 
-    test "changeset/2 with incorrect type" do
+    test "changeset/2 with incorrect profile type" do
       incorrect_type_attrs = @min_valid_attrs |> Map.replace(:profile_type, :wrong_type)
 
       assert %Ecto.Changeset{

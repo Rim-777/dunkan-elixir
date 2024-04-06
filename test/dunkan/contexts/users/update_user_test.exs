@@ -14,11 +14,16 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
       {:ok, user: %User{oauth_providers: [%OauthProvider{name: :facebook}]} = user_fixture()}
     end
 
+    defmacro ok_oauth_provider(user_id) do
+      quote do
+        {:ok, %OauthProvider{user_id: ^unquote(user_id)}}
+      end
+    end
+
     test "add_oauth_provider/1", setup do
       user = %User{id: user_id} = setup[:user]
 
-      assert {:ok, %OauthProvider{user_id: ^user_id}} =
-               UpdateUserContext.add_oauth_provider(user, @attrs)
+      assert ok_oauth_provider(user_id) = UpdateUserContext.add_oauth_provider(user, @attrs)
 
       assert [%OauthProvider{name: :facebook}, %OauthProvider{name: :google}] =
                GetUserContext.by_id(user_id).oauth_providers
@@ -27,8 +32,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserTest do
     test "add_oauth_provider/1 should not create duplications", setup do
       user = %User{id: user_id} = setup[:user]
 
-      assert {:ok, %OauthProvider{user_id: ^user_id}} =
-               UpdateUserContext.add_oauth_provider(user, @attrs)
+      assert ok_oauth_provider(user_id) = UpdateUserContext.add_oauth_provider(user, @attrs)
 
       assert {:error,
               %Ecto.Changeset{
