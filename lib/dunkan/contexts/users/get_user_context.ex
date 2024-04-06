@@ -1,29 +1,25 @@
 defmodule Dunkan.Contexts.Users.GetUserContext do
   @moduledoc """
-  The Users Get by ID context.
+  The Users Get context.
   """
 
   import Ecto.Query, warn: false
   alias Dunkan.Repo
-
   alias Dunkan.User
   alias Dunkan.OauthProvider
 
   @doc """
-  Gets a single user.
+   Gets a single user with related profile and oauth_providers by email.
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
+   returns nil if the User does not exist.
 
-  ## Examples
+   ## Examples
 
-      iex> get_user("test@email.com")
-      %User{}
+    iex> by_email("test@email.com")
+    %User{email: "test@test.com"...}, profile: %Profile{displayed name: "Michel"}}, ...
 
-      iex> get_user("nonexis@email.com")
-      nil
-       
-      iex> get_with_relations(id)
-
+    iex> by_email("nonexis@email.com")
+    nil      
   """
 
   def by_email(email) do
@@ -36,20 +32,17 @@ defmodule Dunkan.Contexts.Users.GetUserContext do
   end
 
   @doc """
-  Gets a single user with relations.
+   Gets a single user with related profile and oauth_providers by id.
 
-  returns nil if user not found.
+   returns nil if the User does not exist.
 
-  ## Examples
+   ## Examples
 
-      iex> get_user!(123)
-      %User{}
+    iex> by_id("123")
+    %User{email: "test@test.com"...}, profile: %Profile{displayed name: "Michel"}}, ...
 
-      iex> get_account!(456)
-      ** (Ecto.NoResultsError)
-       
-      iex> get_with_relations(id)
-      %User{profile: %Profile{}, oauth_providers: [%OauthProvider{}]}
+    iex> by_id("123456")
+    nil      
   """
 
   def by_id(id) do
@@ -60,6 +53,20 @@ defmodule Dunkan.Contexts.Users.GetUserContext do
 
     Repo.one(query)
   end
+
+  @doc """
+   Gets a single user with related profile and oauth_providers by oauth_provider attributes.
+
+   returns nil if the User does not exist.
+
+   ## Examples
+
+    iex> by_oauth_provider(%{name: "google", uid: "12312312312312"})
+     %User{email: "test@test.com"...}, profile: %Profile{displayed name: "Michel"}}, ...
+
+     iex> by_oauth_provider(%{name: "new-provider", uid: "7777777777777"})
+     nil      
+  """
 
   def by_oauth_provider(%{name: provider_name, uid: user_uid}) do
     query =
@@ -76,8 +83,8 @@ defmodule Dunkan.Contexts.Users.GetUserContext do
 
   ## Examples
 
-      iex> list_accounts()
-      [%User{email: "test@test.com"...}, profile: %Profile{displayed name: "Michel"}}, ...]
+    iex> list_accounts()
+    [%User{email: "test@test.com"...}, profile: %Profile{displayed name: "Michel"}}, ...]
 
   """
 

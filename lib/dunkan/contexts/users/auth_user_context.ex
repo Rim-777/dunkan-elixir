@@ -1,4 +1,8 @@
 defmodule Dunkan.Contexts.Users.AuthUserContext do
+  @moduledoc """
+   authenticate users by oauth providers
+  """
+
   alias Dunkan.Contexts.Users.FindOrCreateContext
   alias Dunkan.Contexts.Users.UpdateUserContext
   alias Dunkan.Contexts.Users.GetUserContext
@@ -6,6 +10,28 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
   alias Dunkan.OauthProvider
   alias Dunkan.Contexts.Users.AuthUserContext.PasswordUtility
   alias Dunkan.Contexts.Users.AuthUserContext.Tokenizer
+
+  @doc """
+   1) tries to find a user by oauth_provider attributes 
+   if user not found 
+   2) tries to find a user by email
+   if user not found 
+   3) creates a user with relations 
+   4) validates a given password
+   5) creates a a JWT token
+
+   returns error if the record has not been stored or password is invalid
+
+     ## Examples
+      iex> auth_with_oauth_provider(valid params)
+      {:ok, %User, token}
+
+       iex> auth_with_oauth_provider(invalid params)
+      {:error, %Ecto.Changeset{}}
+
+      iex> auth_with_oauth_provider(invalid password in params)
+      {:error, :invalid_password}
+  """
 
   def auth_with_oauth_provider(%{password: password, oauth_provider: provider_attrs} = attrs) do
     with {:ok, user} <- find_or_create_user(attrs),
@@ -16,11 +42,11 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
     end
   end
 
-  def find_or_create_user(attrs) do
+  defp find_or_create_user(attrs) do
     FindOrCreateContext.by_oauth_attrs(attrs)
   end
 
-  def add_new_provider_if_given(%User{oauth_providers: oauth_providers} = user, provider_attrs) do
+  defp add_new_provider_if_given(%User{oauth_providers: oauth_providers} = user, provider_attrs) do
     case provider_present?(oauth_providers, provider_attrs) do
       true ->
         user
@@ -40,7 +66,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
     end
   end
 
-  def provider_present?(oauth_providers, provider_attrs) do
+  defp provider_present?(oauth_providers, provider_attrs) do
     is_present? = fn provider ->
       to_string(provider.name) == to_string(provider_attrs.name)
     end

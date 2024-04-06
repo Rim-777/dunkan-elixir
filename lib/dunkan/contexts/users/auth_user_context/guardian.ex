@@ -1,10 +1,14 @@
 defmodule Dunkan.Contexts.Users.AuthUserContext.Guardian do
+  @moduledoc """
+   implements behaviour of Guardian - authentication library
+   https://hexdocs.pm/guardian/Guardian.html
+  """
+
   use Guardian, otp_app: :dunkan
   alias Dunkan.Contexts.Users.GetUserContext
 
-  def subject_for_token(%{id: id}, _claims) do
-    sub = to_string(id)
-    {:ok, sub}
+  def subject_for_token(%{id: id}, _claims) when is_binary(id) do
+    {:ok, id}
   end
 
   def subject_for_token(_, _) do
