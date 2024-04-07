@@ -14,18 +14,18 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
   @doc """
    1) Finds or creates a user 
    2) Validates a given password
-   3) Creates a a JWT token
+   3) Creates a JWT token
 
    Returns error if the record has not been stored or password is invalid
 
      ## Examples
-      iex> auth_with_oauth_provider(valid params)
+      iex> auth_with_oauth_provider(valid_attrs)
       {:ok, %User, token}
 
-       iex> auth_with_oauth_provider(invalid params)
+       iex> auth_with_oauth_provider(invalid_attrs)
       {:error, %Ecto.Changeset{}}
 
-      iex> auth_with_oauth_provider(invalid password in params)
+      iex> auth_with_oauth_provider(invalid_password_attrs)
       {:error, :invalid_password}
   """
 

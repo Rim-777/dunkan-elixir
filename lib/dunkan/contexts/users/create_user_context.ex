@@ -8,10 +8,10 @@ defmodule Dunkan.Contexts.Users.CreateUserContext do
   alias Dunkan.User
 
   @doc """
-    1) Accepts combined attributes of user and related Profile and Oauth attributes
-    2) Rebuilds params according to the Changesets
-    3) Inserts a user and relations to the database 
-    4) Returns a %User with all relations 
+    1) Accepts combined attributes of user and related Profile and OauthProvider attributes
+    2) Rebuilds attributes according to the Changesets requirements
+    3) Inserts a user and related profile and oauth provider to the database 
+    4) Returns a %User{} with related %Profile{} and a list of %OauthProvider{}
 
     Returns error if the record has not been stored
 

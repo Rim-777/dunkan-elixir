@@ -22,6 +22,14 @@ defmodule DunkanWeb.FallbackController do
     |> render(:"404")
   end
 
+  # This clause is an example of how to handle unauthorized request.
+  def call(conn, {:error, :invalid_password}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(json: DunkanWeb.ErrorJSON)
+    |> render(:"401")
+  end
+
   # This clause is an example of how to handle bad request.
   def call(conn, {:json_schema_error, errors}) do
     conn

@@ -15,9 +15,11 @@ defmodule Dunkan.UsersFixtures do
       attrs
       |> Enum.into(%{
         email: Map.get(attrs, :email) || sequence(:email, &"dummy-#{&1}@test-mail.com"),
-        password: "#Test1234567",
+        password: Map.get(attrs, :password) || "#Test1234567",
         profile: %{profile_type: "player", displayed_name: "Michael Jordan"},
-        oauth_provider: %{name: "facebook", uid: "75cc3264-7c27-4877-a8bf-29605d98f762"}
+        oauth_provider:
+          Map.get(attrs, :oauth_provider) ||
+            %{name: "facebook", uid: "75cc3264-7c27-4877-a8bf-29605d98f762"}
       })
       |> CreateUserContext.create_with_relations()
 

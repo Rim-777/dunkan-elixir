@@ -11,6 +11,11 @@ defmodule DunkanWeb.ErrorJSON do
     |> detail()
   end
 
+  def render("401.json", _assigns) do
+    "Invalid Login or Password"
+    |> detail()
+  end
+
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".

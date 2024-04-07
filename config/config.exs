@@ -27,8 +27,20 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configures Guardian authentication
+config :dunkan, Dunkan.Contexts.Users.AuthUserContext.Guardian,
+  issuer: "dunkan-backend",
+  secret_key: "3UD5rwEUSZJOA2xk+ctLZvBFJ+GAL8rDWBC5SXDvvEzswYInGSvEZR6d2miaV5Cg"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Configures GuardianDB tokens storage
+config :guardian, Guardian.DB,
+  # Add your repository module
+  repo: Dunkan.Repo,
+  # default
+  schema_name: "guardian_tokens"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,5 +1,8 @@
 defmodule DunkanWeb.OauthControllerTest do
   use DunkanWeb.ConnCase
+  import Dunkan.UsersFixtures
+  alias Dunkan.User
+  alias Dunkan.Profile
 
   @oauth_attrs %{
     oauth_user: %{
@@ -55,6 +58,50 @@ defmodule DunkanWeb.OauthControllerTest do
                },
                "type" => "user"
              } = json_response(response, 200)["data"]
+    end
+
+    test "POST /api/auth/create existing user with nominal params", %{conn: conn} do
+      %User{id: user_id, profile: %Profile{id: profile_id}} =
+        user_fixture(%{
+          email: @oauth_attrs.oauth_user.email,
+          password: @oauth_attrs.oauth_user.password,
+          oauth_provider: @oauth_attrs.oauth_user.oauth_provider
+        })
+
+      response = request(@oauth_attrs, conn)
+
+      assert %{
+               "attributes" => %{"email" => "some@email.com", "phone_number" => nil},
+               "id" => ^user_id,
+               "relationships" => %{
+                 "profile" => %{
+                   "data" => %{
+                     "attributes" => %{
+                       "displayed_name" => "Michael Jordan",
+                       "first_name" => nil,
+                       "last_name" => nil,
+                       "photo_url" => nil,
+                       "profile_type" => "player"
+                     },
+                     "id" => ^profile_id,
+                     "type" => "profile"
+                   }
+                 }
+               },
+               "type" => "user"
+             } = json_response(response, 200)["data"]
+    end
+
+    test "POST /api/auth/create existing user invalid password value", %{conn: conn} do
+      %User{} =
+        user_fixture(%{
+          email: @oauth_attrs.oauth_user.email,
+          password: "some invalid password"
+        })
+
+      response = request(@oauth_attrs, conn)
+
+      assert %{"detail" => "Invalid Login or Password"} = json_response(response, 401)["errors"]
     end
 
     test "POST /api/auth/create user with invalid params", %{conn: conn} do

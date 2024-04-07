@@ -9,10 +9,10 @@ defmodule Dunkan.Contexts.Users.FindOrCreateContext do
 
   @doc """
   1) Tries to find a user by a given oauth_provider attrs 
-  if user not found
-  2) Tries to find a user by a given email, then create and add a new oauth_provider 
-  if user not found
-  3) Creates a new user with a profile and oauth provider 
+  - if user not found
+  2) Tries to find a user by a given email, then creates a new OauthProvider and adds it to the User
+  - if user not found
+  3) Creates a new User with a Profile and OauthProvider
 
   Returns error in case of creation with invalid attributes
 

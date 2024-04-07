@@ -20,7 +20,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext.PasswordUtility do
 
   @doc """
   1) Accepts a sting
-  2) Hashed string
+  2) Hashes the string with a salt
 
    ## Examples
     iex> hash_password("password")

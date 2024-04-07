@@ -12,6 +12,7 @@ defmodule Dunkan.Application do
       Dunkan.Repo,
       {DNSCluster, query: Application.get_env(:dunkan, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Dunkan.PubSub},
+      {Guardian.DB.Sweeper, [interval: 60 * 60 * 1000]},
       # Start a worker by calling: Dunkan.Worker.start_link(arg)
       # {Dunkan.Worker, arg},
       # Start to serve requests, typically the last entry
