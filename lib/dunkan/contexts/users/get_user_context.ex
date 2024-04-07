@@ -72,6 +72,7 @@ defmodule Dunkan.Contexts.Users.GetUserContext do
     query =
       from user in User,
         join: oauth_provider in OauthProvider,
+        on: oauth_provider.user_id == user.id,
         preload: [:profile, :oauth_providers],
         where: oauth_provider.name == ^provider_name and oauth_provider.uid == ^user_uid
 
