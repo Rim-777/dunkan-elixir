@@ -1,7 +1,28 @@
 defmodule Dunkan.Contexts.Users.FindOrCreateContext do
+  @moduledoc """
+   Context of finding or creating a user
+  """
+
   alias Dunkan.Contexts.Users.GetUserContext
   alias Dunkan.Contexts.Users.CreateUserContext
   alias Dunkan.User
+
+  @doc """
+  1) Tries to find a user by a given oauth_provider attrs 
+  if user not found
+  2) Tries to find a user by a given email, then create and add a new oauth_provider 
+  if user not found
+  3) Creates a new user with a profile and oauth provider 
+
+  Returns error in case of creation with invalid attributes
+
+  ## Examples
+  iex> by_oauth_attrs(valid params)
+  {:ok, %User}
+
+   iex> by_oauth_attrs(invalid params)
+  {:error, %Ecto.Changeset{}}
+  """
 
   def by_oauth_attrs(attrs) do
     %{

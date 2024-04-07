@@ -12,15 +12,11 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
   alias Dunkan.Contexts.Users.AuthUserContext.Tokenizer
 
   @doc """
-   1) tries to find a user by oauth_provider attributes 
-   if user not found 
-   2) tries to find a user by email
-   if user not found 
-   3) creates a user with relations 
-   4) validates a given password
-   5) creates a a JWT token
+   1) Finds or creates a user 
+   2) Validates a given password
+   3) Creates a a JWT token
 
-   returns error if the record has not been stored or password is invalid
+   Returns error if the record has not been stored or password is invalid
 
      ## Examples
       iex> auth_with_oauth_provider(valid params)
@@ -60,7 +56,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext do
   end
 
   defp validate_password(%User{password: hashed_password} = user, password) do
-    case PasswordUtility.validate_password(password, hashed_password) do
+    case PasswordUtility.valid_password?(password, hashed_password) do
       true -> {:ok, user}
       false -> {:error, :invalid_password}
     end

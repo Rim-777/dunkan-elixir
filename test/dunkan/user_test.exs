@@ -40,7 +40,7 @@ defmodule Dunkan.UserTest do
                valid?: true
              } = User.changeset(%User{}, @valid_attrs)
 
-      assert PasswordUtility.validate_password(@valid_attrs.password, hashed_password) ==
+      assert PasswordUtility.valid_password?(@valid_attrs.password, hashed_password) ==
                true
     end
 
