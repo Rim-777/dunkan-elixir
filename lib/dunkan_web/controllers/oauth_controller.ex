@@ -7,6 +7,16 @@ defmodule DunkanWeb.OauthController do
 
   action_fallback DunkanWeb.FallbackController
 
+  @doc """
+  Accepts oauth params, validates params with json schema validation
+  Invokes AuthUserContext
+
+  renders  with user and a related profile attributes
+  renders json with errors in cases of:
+   400(invalid schema)
+   401(invalid password)
+   422(invalid db storing) 
+  """
   def create(conn, oauth_params) do
     with {:ok, valid_params} <- OauthContract.validate(oauth_params),
          {:ok, %User{} = user, token} <- oauth_with_valid_params(valid_params) do

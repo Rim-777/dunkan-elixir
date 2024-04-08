@@ -31,6 +31,7 @@ defmodule Dunkan.Contexts.Users.CreateUserTest do
                   middle_name: nil,
                   displayed_name: @displayed_name,
                   gender: nil,
+                  date_of_birth: nil,
                   profile_type: :player
                 },
                 oauth_providers: [

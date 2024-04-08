@@ -13,7 +13,7 @@ defmodule Dunkan.Contexts.Users.CreateUserContext do
     3) Inserts a user and related profile and oauth provider to the database 
     4) Returns a %User{} with related %Profile{} and a list of %OauthProvider{}
 
-    Returns error if the record has not been stored
+    Returns error if a record has not been stored
 
      ## Examples
 

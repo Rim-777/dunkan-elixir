@@ -38,7 +38,7 @@ defmodule Dunkan.Contexts.Users.GetUserContext do
 
    ## Examples
 
-    iex> by_id("123")
+    iex> by_id("7ef72549-8ebb-456f-9924-973308bb2e5a")
     %User{email: "test@test.com"...}, profile: %Profile{displayed name: "Michel"}}, ...
 
     iex> by_id("123456")

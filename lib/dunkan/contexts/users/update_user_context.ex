@@ -12,6 +12,7 @@ defmodule Dunkan.Contexts.Users.UpdateUserContext do
   @doc """
   Takes an existing user and oauth provider attributes as params
   Creates and adds a new oauth provider such a google, facebook, etc, to the given user
+  returns a tuple with :ok and a created OauthProvider
 
   returns error if the record is not stored
 

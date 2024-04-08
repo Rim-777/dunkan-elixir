@@ -25,9 +25,6 @@ COPY . .
 # Compile the project
 RUN mix compile
 
-#
-
-
 # Expose port 4000
 EXPOSE 4000
 

@@ -6,7 +6,8 @@ defmodule Dunkan.ProfileTest do
   describe "changeset" do
     @min_valid_attrs %{
       displayed_name: "Timo Moss",
-      profile_type: "player"
+      profile_type: "player",
+      date_of_birth: "2014-12-12"
     }
     test "changeset/2 is valid with minimum required attributes" do
       assert %Ecto.Changeset{
@@ -35,6 +36,19 @@ defmodule Dunkan.ProfileTest do
                valid?: false,
                errors: [displayed_name: {"can't be blank", [validation: :required]}]
              } = Profile.changeset(%Profile{}, missing_displayed_name_attrs)
+    end
+
+    test "changeset/2 with invalid  date_of_birth" do
+      invalid_date_of_birth_attrs =
+        @min_valid_attrs |> Map.replace(:date_of_birth, "11-12-1999")
+
+      assert %Ecto.Changeset{
+               valid?: false,
+               errors: [
+                 date_of_birth:
+                   {"Invalid format, must be exactly in format yyyy-mm-dd", [validation: :format]}
+               ]
+             } = Profile.changeset(%Profile{}, invalid_date_of_birth_attrs)
     end
   end
 end

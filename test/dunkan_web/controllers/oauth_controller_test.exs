@@ -45,11 +45,14 @@ defmodule DunkanWeb.OauthControllerTest do
                  "profile" => %{
                    "data" => %{
                      "attributes" => %{
-                       "displayed_name" => "Michael Jordan",
                        "first_name" => nil,
                        "last_name" => nil,
+                       "middle_name" => nil,
+                       "displayed_name" => "Michael Jordan",
+                       "gender" => nil,
                        "photo_url" => nil,
-                       "profile_type" => nil
+                       "profile_type" => nil,
+                       "date_of_birth" => nil
                      },
                      "id" => _profile_id,
                      "type" => "profile"

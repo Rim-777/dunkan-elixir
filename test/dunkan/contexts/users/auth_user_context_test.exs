@@ -34,7 +34,6 @@ defmodule Dunkan.Contexts.Users.AuthUserContextTest do
                AuthUserContext.auth_with_oauth_provider(@attrs)
 
       assert_not_called(UpdateUserContext.add_oauth_provider(:_, :_))
-
       assert {:ok, _} = Guardian.decode_and_verify(token, %{typ: "access", sub: user_id})
     end
 

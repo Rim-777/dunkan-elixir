@@ -10,7 +10,7 @@ defmodule Dunkan.Contexts.Users.AuthUserContext.Tokenizer do
 
   @doc """
     1) Accepts a %User{} and token type atom
-    2) Creates token
+    2) Creates s JWT token
     4) Returns a tuple  
 
     Returns error if the record has not been stored

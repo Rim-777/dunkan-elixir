@@ -2,6 +2,10 @@ defmodule DunkanWeb.Contracts.OauthContract do
   alias ExJsonSchema.Validator
   alias ExJsonSchema.Schema
 
+  @moduledoc """
+   JSON schema validation contract
+  """
+
   @schema %{
             "type" => "object",
             "additionalProperties" => false,
@@ -42,6 +46,26 @@ defmodule DunkanWeb.Contracts.OauthContract do
                       },
                       "photo_url" => %{
                         "type" => "string"
+                      },
+                      "gender" => %{
+                        "type" => "string",
+                        "enum" => ["male", "female", "other"]
+                      },
+                      "profile_type" => %{
+                        "type" => "string",
+                        "enum" => ["player", "fun", "parent", "club", "trainer"]
+                      },
+                      "first_name" => %{
+                        "type" => "string"
+                      },
+                      "last_name" => %{
+                        "type" => "string"
+                      },
+                      "middle_name" => %{
+                        "type" => "string"
+                      },
+                      "date_of_birth" => %{
+                        "type" => "string"
                       }
                     }
                   }
@@ -50,6 +74,12 @@ defmodule DunkanWeb.Contracts.OauthContract do
             }
           }
           |> Schema.resolve()
+
+  @doc """
+   Accepts a map with combined user params, validates against given schema
+   Returns valid params without root section  
+   or indicates about invalid attributes
+  """
 
   def validate(%{} = map) do
     with :ok <- Validator.validate(@schema, map) do

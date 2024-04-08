@@ -12,6 +12,7 @@ defmodule Dunkan.Repo.Migrations.CreateProfiles do
       add :gender, :string
       add :profile_type, :string
       add :photo_url, :string
+      add :date_of_birth, :string
 
       add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 
@@ -19,5 +20,6 @@ defmodule Dunkan.Repo.Migrations.CreateProfiles do
     end
 
     create unique_index(:profiles, [:user_id])
+    create index(:profiles, [:displayed_name, :date_of_birth, :gender])
   end
 end
