@@ -48,7 +48,8 @@ defmodule Dunkan.MixProject do
       {:ex_machina, "~> 2.7.0", only: :test},
       {:mock, "~> 0.3.0", only: :test},
       {:ex_json_schema, "~> 0.10.2"},
-      {:useful, "~> 1.0.8"}
+      {:useful, "~> 1.0.8"},
+      {:corsica, "~> 2.1"}
     ]
   end
 
