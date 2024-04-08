@@ -6,10 +6,25 @@ defmodule DunkanWeb.ErrorJSON do
   #   %{errors: %{detail: "Internal Server Error"}}
   # end
 
+  def render("400.json", assigns) do
+    assigns.json_schema_error
+    |> detail()
+  end
+
+  def render("401.json", _assigns) do
+    "Invalid Login or Password"
+    |> detail()
+  end
+
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".
   def render(template, _assigns) do
-    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+    Phoenix.Controller.status_message_from_template(template)
+    |> detail()
+  end
+
+  defp detail(errors) do
+    %{errors: %{detail: errors}}
   end
 end

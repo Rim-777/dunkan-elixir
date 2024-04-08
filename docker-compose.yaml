@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  postgres:
+      image: postgres:latest
+      restart: always
+      container_name: postgres
+      ports:
+        - "5432:5432"
+      expose:
+        - "5432"  
+      environment:
+        POSTGRES_USER: "postgres"
+        POSTGRES_PASSWORD: "postgres"
+        POSTGRES_DB: "dunkan_dev"
+      volumes:
+            - postgres_data:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    expose:
+      - "4000"  
+     
+    environment:
+      MIX_ENV: "dev"
+      DATABASE_URL: postgres://postgres:postgres@postgres:5433/dunkan_dev
+     
+    container_name: elixir  
+    depends_on:
+      - postgres
+    command: "mix do ecto.create, ecto.migrate, phx.server"
+  
+volumes:
+  postgres_data:      

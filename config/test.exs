@@ -20,6 +20,10 @@ config :dunkan, DunkanWeb.Endpoint,
   secret_key_base: "R5bdgEW2C/4F1hy0raLNsUTXNUQm5lWDWp7JdgwCvTWmkc20qME9likfgtoxkkFB",
   server: false
 
+config :dunkan, Dunkan.Contexts.Users.AuthUserContext.Guardian,
+  issuer: "dunkan-backend-test",
+  secret_key: "3UD5rwEUSZJOA2xk+ctLZvBFJ+GAL8rDWBC5SXDvvEzswYInGSvEZR6d2miaV5Cg"
+
 # Print only warnings and errors during test
 config :logger, level: :warning
 

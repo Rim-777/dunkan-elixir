@@ -41,7 +41,15 @@ defmodule Dunkan.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:guardian, "~> 2.3.2"},
+      {:guardian_db, "~> 3.0"},
+      {:bcrypt_elixir, "~> 3.0"},
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:mock, "~> 0.3.0", only: :test},
+      {:ex_json_schema, "~> 0.10.2"},
+      {:useful, "~> 1.0.8"},
+      {:corsica, "~> 2.1"}
     ]
   end
 
