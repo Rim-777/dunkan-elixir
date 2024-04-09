@@ -74,24 +74,28 @@ defmodule DunkanWeb.OauthControllerTest do
       response = request(@oauth_attrs, conn)
 
       assert %{
-               "attributes" => %{"email" => "some@email.com", "phone_number" => nil},
                "id" => ^user_id,
+               "type" => "user",
+               "attributes" => %{
+                 "email" => "some@email.com",
+                 "phone_number" => nil
+               },
                "relationships" => %{
                  "profile" => %{
                    "data" => %{
+                     "id" => ^profile_id,
+                     "type" => "profile",
                      "attributes" => %{
                        "displayed_name" => "Michael Jordan",
                        "first_name" => nil,
                        "last_name" => nil,
                        "photo_url" => nil,
-                       "profile_type" => "player"
-                     },
-                     "id" => ^profile_id,
-                     "type" => "profile"
+                       "profile_type" => "player",
+                       "date_of_birth" => nil
+                     }
                    }
                  }
-               },
-               "type" => "user"
+               }
              } = json_response(response, 200)["data"]
     end
 
